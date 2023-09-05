@@ -1,24 +1,33 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Team', {
+    await queryInterface.createTable('CheckListItem', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      UserId: {
+      CheckListId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'User',
+          model: 'CheckList',
           key: 'id',
         },
         unique: false,
       },
-      name: {
+      title: {
         type: Sequelize.STRING
+      },
+      time: {
+        type: Sequelize.INTEGER
+      },
+      check: {
+        type: Sequelize.BOOLEAN
+      },
+      order: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Team');
+    await queryInterface.dropTable('CheckListItem');
   }
 };

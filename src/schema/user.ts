@@ -6,7 +6,8 @@ export type CreateUserType = {
   request: {
     phone: string;
     password: string;
-    code: string;
+    name: string;
+    lastName: string;
   }
 }
 

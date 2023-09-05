@@ -11,16 +11,7 @@ export const userSignUpRules = {
   phone: 'string|required',
   password: 'string|required',
   name: 'string|required',
-  surname: 'string|required',
-}
-
-export const makeCallRules = {
-  phone: 'string|required',
-}
-
-export const checkPhoneRules = {
-  phone: 'string|required',
-  code: 'string|required',
+  lastName: 'string|required',
 }
 
 export const isUserExistsRules = {
@@ -32,23 +23,6 @@ export const loginRules = {
   password: 'string|required',
 }
 
-// Kid
-export const kidRules = {
-  name: 'string|required',
-  surname: 'string|required',
-  UserId: 'integer|required',
-}
-
-export const getKidRules = {
-  id: 'integer|required',
-}
-
-export const editKidRules = {
-  id: 'integer|required',
-  name: 'string|required',
-  surname: 'string|required',
-}
-
-export const deleteKidRules = {
-  id: 'integer|required',
+export const createCheckListRules = {
+  title: 'string|required',
 }

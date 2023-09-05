@@ -2,18 +2,18 @@ import { sequelize } from '../database/database.config';
 import { CreationOptional, DataTypes as Sequelize, ForeignKey, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import { User } from "./User";
 
-export class SmsCode extends Model<InferAttributes<SmsCode>, InferCreationAttributes<SmsCode>> {
+export class CheckList extends Model<InferAttributes<CheckList>, InferCreationAttributes<CheckList>> {
   declare id: CreationOptional<number>;
-  declare phone: string;
-  declare code: string;
-  declare used: CreationOptional<boolean>;
+  declare UserId: CreationOptional<ForeignKey<User['id']>>;
+  declare title: string;
+  declare time: CreationOptional<Date>;
   // createdAt can be undefined during creation
   declare createdAt: CreationOptional<Date>;
   // updatedAt can be undefined during creation
   declare updatedAt: CreationOptional<Date>;
 }
 
-SmsCode.init(
+CheckList.init(
   {
     id: {
       allowNull: false,
@@ -21,15 +21,20 @@ SmsCode.init(
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    phone: {
-      type: Sequelize.STRING
-    },
-    code: {
-      type: Sequelize.STRING
-    },
-    used: {
+    UserId: {
       allowNull: true,
-      type: Sequelize.BOOLEAN
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id',
+      },
+      unique: false,
+    },
+    title: {
+      type: Sequelize.STRING
+    },
+    time: {
+      type: Sequelize.DATE
     },
     createdAt: {
       allowNull: false,
@@ -42,6 +47,6 @@ SmsCode.init(
   },
   {
     sequelize,
-    tableName: 'SmsCode'
+    tableName: 'CheckList'
   }
 )

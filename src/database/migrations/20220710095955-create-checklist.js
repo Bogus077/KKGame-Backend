@@ -1,22 +1,27 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('SmsCode', {
+    await queryInterface.createTable('CheckList', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      phone: {
-        type: Sequelize.STRING
-      },
-      code: {
-        type: Sequelize.STRING
-      },
-      used: {
+      UserId: {
         allowNull: true,
-        type: Sequelize.BOOLEAN
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'User',
+          key: 'id',
+        },
+        unique: false,
+      },
+      title: {
+        type: Sequelize.STRING
+      },
+      time: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('SmsCode');
+    await queryInterface.dropTable('CheckList');
   }
 };

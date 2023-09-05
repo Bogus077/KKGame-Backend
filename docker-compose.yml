@@ -2,18 +2,18 @@ version: '3.3'
 
 services:
   nginx:
-    container_name: KK-back-nginx
+    container_name: KKGame-back-nginx
     build:
       context: .
       dockerfile: docker/nginx.Dockerfile
     ports:
-      - "3030:3030"
+      - "3060:3060"
     depends_on:
       - nodejs
   nodejs:
     entrypoint: [sh, -c, 'npm run dev']
     hostname: 'nodejs'
-    container_name: KK-back-srv
+    container_name: KKGame-back-srv
     build:
       context: .
       dockerfile: docker/node.Dockerfile
@@ -25,7 +25,7 @@ services:
       - 'smtp.yandex.ru:77.88.21.158'
   pgdb:
     image: postgres:alpine
-    container_name: KK-back-pgdb
+    container_name: KKGame-back-pgdb
     restart: always
     env_file: .env
     # build:

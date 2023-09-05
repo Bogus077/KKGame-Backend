@@ -1,18 +1,22 @@
 import { sequelize } from '../database/database.config';
 import { CreationOptional, DataTypes as Sequelize, ForeignKey, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import { User } from "./User";
+import { CheckList } from './CheckList';
 
-export class Team extends Model<InferAttributes<Team>, InferCreationAttributes<Team>> {
+export class CheckListItem extends Model<InferAttributes<CheckListItem>, InferCreationAttributes<CheckListItem>> {
   declare id: CreationOptional<number>;
-  declare UserId: ForeignKey<User['id']>;
-  declare name: string;
+  declare CheckListId: ForeignKey<CheckList['id']>;
+  declare title: string;
+  declare time: number;
+  declare check: boolean;
+  declare order: number;
   // createdAt can be undefined during creation
   declare createdAt: CreationOptional<Date>;
   // updatedAt can be undefined during creation
   declare updatedAt: CreationOptional<Date>;
 }
 
-Team.init(
+CheckListItem.init(
   {
     id: {
       allowNull: false,
@@ -20,17 +24,26 @@ Team.init(
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    UserId: {
+    CheckListId: {
       allowNull: false,
       type: Sequelize.INTEGER,
       references: {
-        model: 'User',
+        model: 'CheckList',
         key: 'id',
       },
       unique: false,
     },
-    name: {
+    title: {
       type: Sequelize.STRING
+    },
+    time: {
+      type: Sequelize.INTEGER
+    },
+    check: {
+      type: Sequelize.BOOLEAN
+    },
+    order: {
+      type: Sequelize.INTEGER
     },
     createdAt: {
       allowNull: false,
@@ -43,6 +56,6 @@ Team.init(
   },
   {
     sequelize,
-    tableName: 'Team'
+    tableName: 'CheckListItem'
   }
 )
